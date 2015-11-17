@@ -48,12 +48,6 @@
 			<version>3.1.0</version>
 			<scope>provided</scope>
 		</dependency>
-		<dependency> <!-- gebruik JSP’s -->
-			<groupId>javax.servlet.jsp</groupId>
-			<artifactId>jsp-api</artifactId>
-			<version>[2.2,]</version>
-			<scope>provided</scope>
-		</dependency>
 		<dependency> <!-- gebruik JSTL -->
 			<groupId>jstl</groupId>
 			<artifactId>jstl</artifactId>
@@ -65,7 +59,7 @@
 			<artifactId>vaadin-spring</artifactId>
 			<version>1.0.0</version>
 		</dependency>
-		<dependency>
+		<dependency> 
 			<groupId>com.vaadin</groupId>
 			<artifactId>vaadin-client-compiled</artifactId>
 			<version>7.5.9</version>
@@ -85,7 +79,7 @@
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-entitymanager
 				</artifactId>
-				<version>[5, 5.0.99]</version>
+				<version>5.0.3.Final</version>
 			</dependency>
 <!-- 			spring -->
 			<dependency>
