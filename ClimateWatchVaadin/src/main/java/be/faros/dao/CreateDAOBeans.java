@@ -11,12 +11,15 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.vaadin.spring.annotation.EnableVaadin;
+
 import be.faros.entities.ClimateWatchEvent;
 import be.faros.entities.Location;
 
 @Configuration
 @ComponentScan
 @EnableTransactionManagement
+@EnableVaadin
 public class CreateDAOBeans {
 
 	@Bean

@@ -24,12 +24,12 @@
 			</plugin>
 		</plugins>
 	</build>
-	<!-- <repositories> -->
-	<!-- <repository> -->
-	<!-- <id>vaadin-addons</id> -->
-	<!-- <url>http://maven.vaadin.com/vaadin-addons</url> -->
-	<!-- </repository> -->
-	<!-- </repositories> -->
+	<repositories>
+	<repository>
+		<id>vaadin-addons</id>
+		<url>http://maven.vaadin.com/vaadin-addons</url>
+	</repository>
+	</repositories>
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -75,6 +75,11 @@
 			<artifactId>vaadin-themes</artifactId>
 			<version>7.5.9</version>
 		</dependency>
+		 <dependency>
+            <groupId>com.vaadin.addon</groupId>
+            <artifactId>jpacontainer</artifactId>
+            <version>3.1.0</version>
+        </dependency>
 <!-- 		hibernate -->
 			<dependency>
 				<groupId>org.hibernate</groupId>
@@ -82,6 +87,7 @@
 				</artifactId>
 				<version>[5, 5.0.99]</version>
 			</dependency>
+<!-- 			spring -->
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-orm</artifactId>

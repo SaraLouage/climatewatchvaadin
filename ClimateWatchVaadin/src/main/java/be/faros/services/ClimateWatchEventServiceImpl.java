@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import be.faros.dao.ClimateWatchEventDAO;
 import be.faros.entities.ClimateWatchEvent;
+import be.faros.entities.Location;
 
 @Service
 public class ClimateWatchEventServiceImpl implements ClimateWatchEventService{
@@ -18,5 +19,9 @@ public class ClimateWatchEventServiceImpl implements ClimateWatchEventService{
 	@Override
 	public List<ClimateWatchEvent> findAll(){
 		return eventDAO.findAll();
+	}
+	@Override
+	public List<Location> findAllLocations() {
+		return eventDAO.findAllLocations();
 	}
 }
