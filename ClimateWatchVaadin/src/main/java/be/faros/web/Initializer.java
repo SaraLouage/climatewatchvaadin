@@ -7,13 +7,11 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 
 import be.faros.dao.CreateDAOBeans;
 import be.faros.services.CreateServiceBeans;
-import be.faros.ui.MyVaadinUI;
-
 
 public class Initializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 	@Override
 	protected String[] getServletMappings() {
-		return new String[] { "/" };
+		return new String[] { "/*" };
 	}
 
 	@Override
@@ -26,7 +24,10 @@ public class Initializer extends AbstractAnnotationConfigDispatcherServletInitia
 
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
-		return new Class<?>[] { MyVaadinUI.Servlet.class };
+		return null;
+//				new Class<?>[] { 
+//			RedirectController.class
+//		};
 	}
 
 	@Override
