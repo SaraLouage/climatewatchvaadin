@@ -26,7 +26,6 @@ public class Initializer extends AbstractAnnotationConfigDispatcherServletInitia
 	protected Class<?>[] getServletConfigClasses() {
 		return null;
 //				new Class<?>[] { 
-//			RedirectController.class
 //		};
 	}
 
