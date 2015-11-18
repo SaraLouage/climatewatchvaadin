@@ -9,7 +9,7 @@ import be.faros.dao.ClimateWatchEventDAO;
 import be.faros.entities.ClimateWatchEvent;
 import be.faros.entities.Location;
 
-@Service
+@Service("eventService")
 public class ClimateWatchEventServiceImpl implements ClimateWatchEventService{
 	private final ClimateWatchEventDAO eventDAO;
 	@Autowired
