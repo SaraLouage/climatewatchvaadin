@@ -1,6 +1,7 @@
 package be.faros.ui;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -30,6 +31,7 @@ import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
+import be.faros.entities.ClimateWatchEvent;
 import be.faros.services.ClimateWatchEventService;
 import config.ApplicationConfig;
 
@@ -40,13 +42,7 @@ public class MyVaadinUI extends UI {
 	
 	@Autowired
 	ClimateWatchEventService eventService;
-	
-//	public MyVaadinUI() {
-//		ServletContext servletContext = VaadinServlet.getCurrent().getServletContext();
-//		WebApplicationContext appCtx = WebApplicationContextUtils.getRequiredWebApplicationContext(servletContext);
-//		
-//		eventService = appCtx.getBean("eventService", ClimateWatchEventService.class);
-//	}
+
 	
 	
 	
@@ -62,13 +58,14 @@ public class MyVaadinUI extends UI {
 		setContent(content);
 //		 DropDown locatie
 		NativeSelect locatie = new NativeSelect("Select an option");
-		System.out.println("-------------------------------------------------------");
-		System.out.println(eventService);
-//		List<ClimateWatchEvent> locations = eventService.findAll();
-		for (int i = 1; i < 7; i++) {
-			locatie.addItem("location" + i);
-			locatie.setItemCaption(i, "Option " + i);
+		List<ClimateWatchEvent> locations = eventService.findAll();
+		for(ClimateWatchEvent ce : locations){
+			locatie.addItem(ce.getLocation());
 		}
+//		for (int i = 1; i < 7; i++) {
+//			locatie.addItem("location" + i);
+//			locatie.setItemCaption(i, "Option " + i);
+//		}
 
 		locatie.setNullSelectionAllowed(false);
 		locatie.setValue("location1");
