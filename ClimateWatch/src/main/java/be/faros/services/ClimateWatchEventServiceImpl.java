@@ -1,5 +1,6 @@
 package be.faros.services;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,8 @@ public class ClimateWatchEventServiceImpl implements ClimateWatchEventService{
 		return eventDAO.findAll();
 	}
 	@Override
-	public List<Location> findAllLocations() {
-		return eventDAO.findAllLocations();
-	}
+	public List<ClimateWatchEvent> findByDate(Date date){
+		return eventDAO.findByDate(date);
+	};
+
 }
