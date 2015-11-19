@@ -33,6 +33,7 @@ import be.faros.config.ApplicationConfig;
 import be.faros.entities.ClimateWatchEvent;
 import be.faros.entities.Location;
 import be.faros.services.ClimateWatchEventService;
+import ua.net.freecode.chart.Chart;
 
 @Theme("valo")
 @SpringUI
@@ -44,7 +45,7 @@ public class MyVaadinUI extends UI {
 	Table table = new Table();
 	
 	@WebServlet(value = "/*", asyncSupported = true)
-	@VaadinServletConfiguration(productionMode = false, ui = MyVaadinUI.class)
+	@VaadinServletConfiguration(productionMode = false, ui = MyVaadinUI.class, widgetset = "MyWidgetset")
 	public static class Servlet extends SpringVaadinServlet {
 	} 
 
@@ -81,9 +82,9 @@ public class MyVaadinUI extends UI {
 		//table 
 		//aan de hand van locatie toevoegen
 		calendar.addValueChangeListener(e -> makeTable(calendar, events));
-
+		Chart chart = new Chart();
 		//adding content
-		content.addComponents(locatie, calendar, table);
+		content.addComponents(locatie, calendar, table, chart);
 			
 		}
 
