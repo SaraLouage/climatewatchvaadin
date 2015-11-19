@@ -1,6 +1,5 @@
 package be.faros.ui;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -25,20 +24,12 @@ import com.vaadin.ui.InlineDateField;
 import com.vaadin.ui.NativeSelect;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Notification.Type;
-import com.vaadin.ui.Table;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
 import be.faros.config.ApplicationConfig;
 import be.faros.entities.ClimateWatchEvent;
-import be.faros.entities.Location;
 import be.faros.services.ClimateWatchEventService;
-import ua.net.freecode.chart.AxisSystem;
-import ua.net.freecode.chart.AxisSystem.AxisHorizontal;
-import ua.net.freecode.chart.AxisSystem.AxisVertical;
-import ua.net.freecode.chart.Chart;
-import ua.net.freecode.chart.CurvePresentation;
-import ua.net.freecode.chart.Marker;
 
 @Theme("valo")
 @SpringUI
@@ -88,10 +79,8 @@ public class MyVaadinUI extends UI {
 		calendar.addValueChangeListener(e -> InitializeElements.makeChart(calendar, events));
 
 		//adding content
-		content.addComponents(locatie, calendar, InitializeElements.staticChart);
-			
+		content.addComponents(locatie, calendar, InitializeElements.staticChart);		
 		}
-	
 	
 	@WebListener
 	public static class MyContextLoaderListener extends ContextLoaderListener {}
