@@ -17,9 +17,8 @@ import ua.net.freecode.chart.AxisSystem.AxisHorizontal;
 import ua.net.freecode.chart.AxisSystem.AxisVertical;
 
 public class InitializeElements {
-	static Chart staticChart;
+	static Chart chart;
 	public static void makeChart(InlineDateField calendar, List<ClimateWatchEvent> events){
-		Chart chart = new Chart();
 		chart.addStyleName("UniqueColorsBlueGreenRedScheme");
 		chart.setWidth("100%");
 		chart.setHeight("400px");
@@ -54,9 +53,7 @@ public class InitializeElements {
 				new double[]{300,400,450,500,657,450,230,100,500,200,300,500},
 				new double[]{196,20,212,302,0,12,30,33,64,100,200,212}
 		});
-		staticChart = chart;
 		
-
 	}
 	private static Table makeTable(InlineDateField calendar, List<ClimateWatchEvent> events) {
 		Table table = new Table();

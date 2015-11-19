@@ -79,7 +79,7 @@ public class MyVaadinUI extends UI {
 		calendar.addValueChangeListener(e -> InitializeElements.makeChart(calendar, events));
 
 		//adding content
-		content.addComponents(locatie, calendar, InitializeElements.staticChart);		
+		content.addComponents(locatie, calendar, InitializeElements.chart);		
 		}
 	
 	@WebListener
