@@ -17,7 +17,7 @@ import ua.net.freecode.chart.AxisSystem.AxisHorizontal;
 import ua.net.freecode.chart.AxisSystem.AxisVertical;
 
 public class InitializeElements {
-	static Chart chart;
+	static Chart chart = new Chart();
 	public static void makeChart(InlineDateField calendar, List<ClimateWatchEvent> events){
 		chart.addStyleName("UniqueColorsBlueGreenRedScheme");
 		chart.setWidth("100%");
@@ -45,14 +45,23 @@ public class InitializeElements {
 //				new CurvePresentation(new Marker(Marker.MarkerShape.Square),2,CurvePresentation.CurveKind.Line),
 //				new CurvePresentation(new Marker(Marker.MarkerShape.NoMarker),1,CurvePresentation.CurveKind.Area),
 		});
-		axisSystem.setXDiscreteValues(new String[]{"January 2012",
-				"February 2012","March 2012","April 2012","May 2012","June 2012",
+		axisSystem.setXDiscreteValues(new String[]{"01:00",
+				"02:00","03:00","04:00","05:00","06:00",
 				"July 2012", "August 2012","September 2012","October 2012",
 				"November 2012","December 2012"});
+
+//		for(ClimateWatchEvent ce : events){
+//			Calendar ceCalendar = Calendar.getInstance();
+//			ceCalendar.setTime(calendar.getValue());
+//			//Timestamp vs date probleem oplossen
+//			if (ce.getTime().getDate()== ceCalendar.getTime().getDate()){
+//				Double[] array = new Double;
+//		table.addItem(new Object[]{ce.getLocation(),ce.getTime()},
+//				row++ );
+//			}
+//		}
 		axisSystem.setYDiscreteValuesForAllSeries(new double[][]{
-				new double[]{300,400,450,500,657,450,230,100,500,200,300,500},
-				new double[]{196,20,212,302,0,12,30,33,64,100,200,212}
-		});
+				new double[]{300,400,450,500,657,450,230,100,500,200,300,500}		});
 		
 	}
 	private static Table makeTable(InlineDateField calendar, List<ClimateWatchEvent> events) {
