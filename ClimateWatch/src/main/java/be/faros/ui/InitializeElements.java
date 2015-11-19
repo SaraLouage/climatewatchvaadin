@@ -19,49 +19,40 @@ import ua.net.freecode.chart.AxisSystem.AxisVertical;
 public class InitializeElements {
 	static Chart chart = new Chart();
 	public static void makeChart(InlineDateField calendar, List<ClimateWatchEvent> events){
+
 		chart.addStyleName("UniqueColorsBlueGreenRedScheme");
 		chart.setWidth("100%");
 		chart.setHeight("400px");
-		//20 pixels at the right is necessary because we have long labels at the bottom axis and when
-		//there is no legend, they are cut if we do not provide some additional space at the right
 		chart.setMinRightMargin(20);
-		//our labels at the bottom axis are at the angle of 45 and they need 100-pixel height of the space
 		chart.setAxisLabelStringHeight(100);
 		chart.setGeneralTitle("ClimateWatch");
 		chart.setLegendData(new String[]{"temperature"});
-		//The value of legend item width is adjusted according to the longest string in the legend data,
-		//which can be chosen experimentally
 		chart.setLegendItemWidth(112);
 		AxisSystem axisSystem = chart.createAxisSystem(AxisHorizontal.Bottom, AxisVertical.Left);
-		//our range is 0..1000 (it is not necessary to specify 0 as minimum since it is the default)
-		axisSystem.setVerticalAxisMaxValue(1000);
-		//the angle for each label at the bottom axis is 45 degrees
+		axisSystem.setVerticalAxisMaxValue(100);
 		axisSystem.setHorizontalAxisLabelAngle(45);
 		axisSystem.setHorizontalAxisTitle("time");
 		axisSystem.setVerticalAxisTitle("temperature");
 		axisSystem.setCurvePresentation(new CurvePresentation[]{
-				new CurvePresentation(new Marker(Marker.MarkerShape.Circle),0,CurvePresentation.CurveKind.VerticalBar),
-//				new CurvePresentation(new Marker(Marker.MarkerShape.Rectangle),0,CurvePresentation.CurveKind.VerticalBar),
-//				new CurvePresentation(new Marker(Marker.MarkerShape.Square),2,CurvePresentation.CurveKind.Line),
-//				new CurvePresentation(new Marker(Marker.MarkerShape.NoMarker),1,CurvePresentation.CurveKind.Area),
+				new CurvePresentation(new Marker(Marker.MarkerShape.Circle),0,CurvePresentation.CurveKind.Line)
 		});
-		axisSystem.setXDiscreteValues(new String[]{"01:00",
-				"02:00","03:00","04:00","05:00","06:00",
-				"July 2012", "August 2012","September 2012","October 2012",
-				"November 2012","December 2012"});
-
-//		for(ClimateWatchEvent ce : events){
-//			Calendar ceCalendar = Calendar.getInstance();
-//			ceCalendar.setTime(calendar.getValue());
-//			//Timestamp vs date probleem oplossen
-//			if (ce.getTime().getDate()== ceCalendar.getTime().getDate()){
-//				Double[] array = new Double;
-//		table.addItem(new Object[]{ce.getLocation(),ce.getTime()},
-//				row++ );
-//			}
-//		}
-		axisSystem.setYDiscreteValuesForAllSeries(new double[][]{
-				new double[]{300,400,450,500,657,450,230,100,500,200,300,500}		});
+		String [] hours = new String[]{"01:00",
+			"03:00","05:00","07:00", "09:00","11:00"
+			,"13:00","15:00","17:00","19:00","21:00","23:00"
+			};
+		
+		axisSystem.setXDiscreteValues(hours);
+		double[] array = new double[hours.length];
+		for(ClimateWatchEvent ce : events){
+			Calendar ceCalendar = Calendar.getInstance();
+			ceCalendar.setTime(calendar.getValue());
+			//Timestamp vs date probleem oplossen
+			if ((ce.getTime().getDate()== ceCalendar.getTime().getDate())){
+//				array[i]=(double) ce.getDegrees();
+				
+			}
+		}
+		axisSystem.setYDiscreteValuesForAllSeries(new double[][]{array});
 		
 	}
 	private static Table makeTable(InlineDateField calendar, List<ClimateWatchEvent> events) {
