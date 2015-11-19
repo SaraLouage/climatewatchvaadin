@@ -28,10 +28,10 @@ import com.vaadin.ui.Table;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
+import be.faros.config.ApplicationConfig;
 import be.faros.entities.ClimateWatchEvent;
 import be.faros.entities.Location;
 import be.faros.services.ClimateWatchEventService;
-import config.ApplicationConfig;
 
 @Theme("valo")
 @SpringUI
@@ -76,7 +76,7 @@ public class MyVaadinUI extends UI {
 
 
 		locatie.setNullSelectionAllowed(false);
-		locatie.setValue("location1");
+		locatie.setValue(events.get(0).getLocation());
 		locatie.setImmediate(true);
 
 		locatie.addValueChangeListener(e -> Notification.show("Value changed:",
