@@ -70,7 +70,6 @@ public class MyVaadinUI extends UI {
 		}
 
 		locatie.setNullSelectionAllowed(false);
-		locatie.setValue(events.get(0).getLocation());
 		locatie.setImmediate(true);
 
 		locatie.addValueChangeListener(e -> Notification.show("Value changed:",

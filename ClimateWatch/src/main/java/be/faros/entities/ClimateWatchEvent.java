@@ -1,7 +1,7 @@
 package be.faros.entities;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,13 +18,13 @@ public class ClimateWatchEvent implements Serializable{
 	@Id
 	@GeneratedValue
 	private long id;
-	private Timestamp time;
+	private Date time;
 	private float degrees;
 	@ManyToOne
 	@JoinColumn(name="LOCATION_ID")
 	private Location location;
 	
-	public Timestamp getTime() {
+	public Date getTime() {
 		return time; 
 	}
 	public float getDegrees() {
@@ -34,7 +34,7 @@ public class ClimateWatchEvent implements Serializable{
 		return location;
 	}
 	public ClimateWatchEvent(){}
-	public ClimateWatchEvent(long id, Timestamp time, float degrees, Location location){
+	public ClimateWatchEvent(long id, Date time, float degrees, Location location){
 		this.id = id;
 		this.time = time;
 		this.degrees = degrees;
