@@ -1,5 +1,6 @@
 package be.faros.ui;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -61,11 +62,7 @@ public class MyVaadinUI extends UI {
 		calendar.setLocale(Locale.ENGLISH);
 		calendar.setResolution(Resolution.DAY);
 		
-		//table 
 
-		
-		
-		calendar.addValueChangeListener(e -> makeTable(calendar));
 		
 //		DropDown locatie
 		List<ClimateWatchEvent> events = eventService.findAll();
@@ -74,7 +71,6 @@ public class MyVaadinUI extends UI {
 			locatie.addItem(ce.getLocation());
 		}
 
-
 		locatie.setNullSelectionAllowed(false);
 		locatie.setValue(events.get(0).getLocation());
 		locatie.setImmediate(true);
@@ -82,20 +78,34 @@ public class MyVaadinUI extends UI {
 		locatie.addValueChangeListener(e -> Notification.show("Value changed:",
 				String.valueOf(e.getProperty().getValue()), Type.TRAY_NOTIFICATION));
 
+		//table 
+		//aan de hand van locatie toevoegen
+		calendar.addValueChangeListener(e -> makeTable(calendar, events));
 
+		//adding content
 		content.addComponents(locatie, calendar, table);
 			
 		}
 
-	private void makeTable(InlineDateField calendar) {
+	private void makeTable(InlineDateField calendar, List<ClimateWatchEvent> events) {
+		table.removeAllItems();
 		table.addContainerProperty("location", Location.class, null);
 		table.addContainerProperty("time", Date.class, null);
 		
-		List<ClimateWatchEvent> eventsByDate = eventService.findByDate(calendar.getValue());
-
+//		List<ClimateWatchEvent> eventsByDate = eventService.findByDate(calendar.getValue());
+		
+		
+		
 		int row = 0;
-		for(ClimateWatchEvent ce : eventsByDate){
+		for(ClimateWatchEvent ce : events){
+			Calendar ceCalendar = Calendar.getInstance();
+
+			ceCalendar.setTime(calendar.getValue());
+			//Timestamp vs date probleem oplossen
+
+			if (ce.getTime().getDate()== ceCalendar.getTime().getDate())
 		table.addItem(new Object[]{ce.getLocation(),ce.getTime()},row++ );
+
 		}
 	}
 

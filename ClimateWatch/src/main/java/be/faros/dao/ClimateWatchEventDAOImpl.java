@@ -36,7 +36,6 @@ public class ClimateWatchEventDAOImpl implements ClimateWatchEventDAO, Serializa
 
 	@Override
 	public List<ClimateWatchEvent> findByDate(Date date) {
-		System.out.println("KKKKKKKKKKKKKKKKKK");
 		
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);		
