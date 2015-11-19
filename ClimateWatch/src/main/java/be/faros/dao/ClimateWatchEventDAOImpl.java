@@ -2,13 +2,12 @@ package be.faros.dao;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.eclipse.persistence.jpa.jpql.parser.DateTime;
 import org.springframework.stereotype.Repository;
 
 import be.faros.entities.ClimateWatchEvent;
@@ -35,23 +34,15 @@ public class ClimateWatchEventDAOImpl implements ClimateWatchEventDAO, Serializa
 	}
 
 	@Override
-	public List<ClimateWatchEvent> findByDate(Date date) {
-		
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(date);		
-		Calendar calendarStart = Calendar.getInstance();
-		Calendar calendarEnd = Calendar.getInstance();
-		
-		calendarStart.set(calendar.YEAR, calendar.MONTH, calendar.DAY_OF_MONTH, 0,0,0);
-		calendarEnd.set(calendar.YEAR, calendar.MONTH, calendar.DAY_OF_MONTH, 23,59,59);
-		
+	public List<ClimateWatchEvent> findByDate(java.util.Date date) {
+
 	
-		return entityManager.createQuery("select c from ClimateWatchEvent c where "
-				+ "between ':calendarStart' and ':calendarEnd'",
+		return entityManager.createQuery("select c from ClimateWatchEvent c where c.time "
+				+ "= :date",
 				ClimateWatchEvent.class)
-				.setParameter("calendarStart", calendarStart)
-				.setParameter("calendarEnd", calendarEnd)
+				.setParameter("date",date)
 				.getResultList();
+		
 	}
 
 }

@@ -1,5 +1,6 @@
 package be.faros.ui;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -24,11 +25,13 @@ import com.vaadin.ui.InlineDateField;
 import com.vaadin.ui.NativeSelect;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Notification.Type;
+import com.vaadin.ui.Table;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
 import be.faros.config.ApplicationConfig;
 import be.faros.entities.ClimateWatchEvent;
+import be.faros.entities.Location;
 import be.faros.services.ClimateWatchEventService;
 
 @Theme("valo")
@@ -74,13 +77,36 @@ public class MyVaadinUI extends UI {
 				String.valueOf(e.getProperty().getValue()), Type.TRAY_NOTIFICATION));
 		
 		InitializeElements.makeChart(calendar, events);
-		//table 
+		Table table = tableMaken(calendar);
+		
 		//aan de hand van locatie toevoegen
+		calendar.addValueChangeListener(e -> tableMaken(calendar));
 		calendar.addValueChangeListener(e -> InitializeElements.makeChart(calendar, events));
 
 		//adding content
-		content.addComponents(locatie, calendar, InitializeElements.chart);		
+		content.addComponents(locatie, calendar, InitializeElements.chart, table);		
 		}
+
+	private Table tableMaken(InlineDateField calendar) {
+
+		Table table = new Table();
+		table.removeAllItems();
+		table.addContainerProperty("location", Location.class, null);
+		table.addContainerProperty("time", Date.class, null);
+		Date date = calendar.getValue();
+		Calendar calendarVar = Calendar.getInstance();
+		calendarVar.setTime(date);
+		List<ClimateWatchEvent> eventsByDate = eventService.findByDate(calendar.getValue());
+System.out.println("KKKKKKKKKKKKKKKKKKKKKKKKKKKKKK");
+System.out.println(eventsByDate.size());
+		int row = 0;
+
+		for(ClimateWatchEvent ce : eventsByDate){		
+		table.addItem(new Object[]{ce.getLocation(),ce.getTime()},row++ );			}
+		table.addItem(new Object[]{new Location() ,new Date()},row++ );
+
+		return table;
+	}
 	
 	@WebListener
 	public static class MyContextLoaderListener extends ContextLoaderListener {}
