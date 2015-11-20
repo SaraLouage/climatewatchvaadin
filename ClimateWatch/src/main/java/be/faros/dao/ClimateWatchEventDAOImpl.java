@@ -39,16 +39,13 @@ public class ClimateWatchEventDAOImpl implements ClimateWatchEventDAO, Serializa
 		cal.setTime(utilDate);
 
 		
-		String calendarString = ""+ cal.get(Calendar.DAY_OF_MONTH) + "/" + cal.get(Calendar.MONTH) + "/" + cal.get(Calendar.YEAR);
+		String calendarString = ""+ cal.get(Calendar.DAY_OF_MONTH) + "/" + cal.get(Calendar.MONTH) + "/" + cal.get(Calendar.YEAR) + "%";
+
 		
-		
-		java.sql.Date sqlDate = new java.sql.Date(cal.getTime().getTime());
-		
-		
-		return entityManager.createQuery("select c from ClimateWatchEvent c where c.time "
-				+ "= :date",
+		return entityManager.createQuery("select c from ClimateWatchEvent c where c.time like "
+				+ " :date",
 				ClimateWatchEvent.class)
-				.setParameter("date",sqlDate)
+				.setParameter("date",calendarString)
 				.getResultList();
 		
 	}
