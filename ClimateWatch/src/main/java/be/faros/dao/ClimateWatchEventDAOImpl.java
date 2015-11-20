@@ -1,13 +1,11 @@
 package be.faros.dao;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.eclipse.persistence.jpa.jpql.parser.DateTime;
 import org.springframework.stereotype.Repository;
 
 import be.faros.entities.ClimateWatchEvent;

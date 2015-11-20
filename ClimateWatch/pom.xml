@@ -67,7 +67,7 @@
 		<dependency>
 			<groupId>com.vaadin</groupId>
 			<artifactId>vaadin-client-compiler</artifactId>
-			<version>7.3.10</version>
+			<version>7.4.4</version>
 			<scope>provided</scope>
 		</dependency>
 		<!-- hibernate -->
