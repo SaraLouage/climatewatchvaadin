@@ -1,6 +1,7 @@
 package be.faros.dao;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -32,13 +33,26 @@ public class ClimateWatchEventDAOImpl implements ClimateWatchEventDAO, Serializa
 	}
 
 	@Override
-	public List<ClimateWatchEvent> findByDate(java.util.Date date) {
+	public List<ClimateWatchEvent> findByDate(java.util.Date utilDate) {
 
-	
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(utilDate);
+
+		
+		String calendarString = ""+ cal. + "/" + Calendar.MONTH + "/" + Calendar.YEAR;
+		System.out.println("TTTTEEEESSSTTTTT");
+		System.out.println(calendarString);
+		System.out.println("utilDate " + utilDate);
+		System.out.println("cal month " + cal.MONTH);
+		
+		
+		java.sql.Date sqlDate = new java.sql.Date(cal.getTime().getTime());
+		
+		
 		return entityManager.createQuery("select c from ClimateWatchEvent c where c.time "
 				+ "= :date",
 				ClimateWatchEvent.class)
-				.setParameter("date",date)
+				.setParameter("date",sqlDate)
 				.getResultList();
 		
 	}

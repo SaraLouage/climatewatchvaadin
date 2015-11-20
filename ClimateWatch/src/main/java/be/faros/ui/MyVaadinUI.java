@@ -92,12 +92,18 @@ public class MyVaadinUI extends UI {
 		table.removeAllItems();
 		table.addContainerProperty("location", Location.class, null);
 		table.addContainerProperty("time", Date.class, null);
+		
 		Date date = calendar.getValue();
 		Calendar calendarVar = Calendar.getInstance();
 		calendarVar.setTime(date);
-		List<ClimateWatchEvent> eventsByDate = eventService.findByDate(calendar.getValue());
+		calendarVar.set(Calendar.HOUR_OF_DAY, 0);
+		calendarVar.set(Calendar.MINUTE, 0);
+		calendarVar.set(Calendar.SECOND, 0);
+		calendarVar.set(Calendar.MILLISECOND, 0);   
+		
+		List<ClimateWatchEvent> eventsByDate = eventService.findByDate(calendarVar.getTime());
 System.out.println("KKKKKKKKKKKKKKKKKKKKKKKKKKKKKK");
-System.out.println(eventsByDate.size());
+System.out.println("CalenderVar getValue: " + calendarVar.getTime());
 		int row = 0;
 
 		for(ClimateWatchEvent ce : eventsByDate){		
