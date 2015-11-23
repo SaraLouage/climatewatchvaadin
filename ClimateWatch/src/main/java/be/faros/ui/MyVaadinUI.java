@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.web.context.ContextLoaderListener;
 
+import com.ibm.icu.util.Calendar;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.VaadinRequest;
@@ -62,14 +63,9 @@ public class MyVaadinUI extends UI {
 		
 //		DropDown locatie
 		List<Location> events = eventService.findAllLocations();
-		NativeSelect locatie = new NativeSelect("Select an option");
-		for(Location ce : events){
-			locatie.addItem(ce.getLocation());
-		}
-
+		NativeSelect locatie = new NativeSelect("Select an option", events);
 		locatie.setNullSelectionAllowed(false);
 		locatie.setImmediate(true);
-
 		locatie.addValueChangeListener(e -> Notification.show("Value changed:",
 				String.valueOf(e.getProperty().getValue()), Type.TRAY_NOTIFICATION));
 		
@@ -77,12 +73,17 @@ public class MyVaadinUI extends UI {
 		
 		//aan de hand van locatie toevoegen
 //
-//		calendar.addValueChangeListener(e -> InitializeElements
-//				.makeChart(eventService.findByDateAndLocation(calendar.getValue())));
+		calendar.addValueChangeListener(e -> checkValueChange(locatie, calendar));
 
 		//adding content
 		content.addComponents(locatie, calendar, InitializeElements.chart);		
 		}
+	private void checkValueChange(NativeSelect locatie, InlineDateField calendar){
+		if((locatie.getValue()!=null) && (calendar.getValue()!=null)){
+			InitializeElements.makeChart(eventService
+					.findByDateAndLocation(calendar.getValue(), locatie.getValue().));
+		}
+	}
 	
 	@WebListener
 	public static class MyContextLoaderListener extends ContextLoaderListener {}
@@ -90,8 +91,6 @@ public class MyVaadinUI extends UI {
 	@Configuration
 	@EnableVaadin
 	@Import(value = {ApplicationConfig.class})
-	public static class MyConfiguration{
-		
-	}
+	public static class MyConfiguration{}
 
 }
