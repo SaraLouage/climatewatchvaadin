@@ -10,5 +10,5 @@ public interface ClimateWatchEventDAO {
 //	public ClimateWatchEvent read(long id);
 	List<ClimateWatchEvent> findAll();
 	List<ClimateWatchEvent> findByDateAndLocation(Date utilDate, long location);
-	List<ClimateWatchEvent> findLocation(long location);
+	List<Location> findAllLocations();
 }

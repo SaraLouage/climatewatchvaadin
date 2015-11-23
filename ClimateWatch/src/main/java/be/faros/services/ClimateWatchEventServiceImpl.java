@@ -27,8 +27,9 @@ public class ClimateWatchEventServiceImpl implements ClimateWatchEventService{
 		return eventDAO.findByDateAndLocation(utilDate, location);
 	};
 	@Override
-	public List<ClimateWatchEvent> findLocation(long location){
-		return eventDAO.findLocation(location);
+	public
+	List<Location> findAllLocations(){
+		return eventDAO.findAllLocations();
 		
 	}
 
