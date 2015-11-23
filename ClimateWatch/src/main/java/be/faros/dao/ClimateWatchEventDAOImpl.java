@@ -11,6 +11,7 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 
 import be.faros.entities.ClimateWatchEvent;
+import be.faros.entities.Location;
 
 @Repository
 public class ClimateWatchEventDAOImpl implements ClimateWatchEventDAO, Serializable {
@@ -34,7 +35,7 @@ public class ClimateWatchEventDAOImpl implements ClimateWatchEventDAO, Serializa
 	}
 
 	@Override
-	public List<ClimateWatchEvent> findByDate(Date utilDate) {
+	public List<ClimateWatchEvent> findByDateAndLocation(Date utilDate, long location) {
 		
 		Calendar beginCal = Calendar.getInstance();
 		Calendar endCal = Calendar.getInstance();
@@ -54,11 +55,13 @@ public class ClimateWatchEventDAOImpl implements ClimateWatchEventDAO, Serializa
 				59);
 		
 		
-		return entityManager.createQuery("select c from ClimateWatchEvent c where c.time between "
-				+ ":startDate and :endDate",
+		return entityManager.createQuery("select c from ClimateWatchEvent c where (c.time between "
+				+ ":startDate and :endDate) "
+				+ "and (c.location_id =:location);",
 				ClimateWatchEvent.class)
 				.setParameter("startDate", beginCal)
 				.setParameter("endDate", endCal)
+				.setParameter("location", location)
 				.getResultList();
 		
 	}
