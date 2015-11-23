@@ -1,7 +1,6 @@
 package be.faros.ui;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -13,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.web.context.ContextLoaderListener;
 
+import com.vaadin.annotations.PreserveOnRefresh;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.VaadinRequest;
@@ -26,7 +26,6 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
 import be.faros.config.ApplicationConfig;
-import be.faros.entities.Location;
 import be.faros.services.ClimateWatchEventService;
 
 @Theme("valo")
@@ -59,17 +58,13 @@ public class MyVaadinUI extends UI {
 				e -> InitializeElements.checkValueChange(locatieMenu.getValue(), calendarMenu.getValue(), eventService));
 		calendarMenu.addValueChangeListener(
 				e -> InitializeElements.checkValueChange(locatieMenu.getValue(), calendarMenu.getValue(), eventService));
-		// -------------------------
-//		locatieMenu.addValueChangeListener(
-//				e -> calendarMenu.addValueChangeListener(f -> content.addComponent(InitializeElements.chart)));
-//		calendarMenu.addValueChangeListener(
-//				e -> locatieMenu.addValueChangeListener(f -> content.addComponent(InitializeElements.chart)));
 
-		// ---------------------------------------
 		// adding content
 		content.addComponents(locatieMenu, calendarMenu, InitializeElements.chart);
-		content.addAttachListener(listener);
 	}
+
+
+
 
 	// configuration classes
 	@WebListener

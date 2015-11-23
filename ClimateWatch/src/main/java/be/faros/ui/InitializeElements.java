@@ -4,8 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import com.vaadin.ui.InlineDateField;
-import com.vaadin.ui.NativeSelect;
+import com.vaadin.ui.VerticalLayout;
 
 import be.faros.entities.ClimateWatchEvent;
 import be.faros.entities.Location;
