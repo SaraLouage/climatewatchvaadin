@@ -13,7 +13,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.web.context.ContextLoaderListener;
 
-import com.ibm.icu.util.Calendar;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.VaadinRequest;
@@ -29,7 +28,6 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
 import be.faros.config.ApplicationConfig;
-import be.faros.entities.ClimateWatchEvent;
 import be.faros.entities.Location;
 import be.faros.services.ClimateWatchEventService;
 
@@ -81,7 +79,7 @@ public class MyVaadinUI extends UI {
 	private void checkValueChange(NativeSelect locatie, InlineDateField calendar){
 		if((locatie.getValue()!=null) && (calendar.getValue()!=null)){
 			InitializeElements.makeChart(eventService
-					.findByDateAndLocation(calendar.getValue(), locatie.getValue().));
+					.findByDateAndLocation(calendar.getValue(), ((Location)locatie.getValue()).getLOCATION_ID()));
 		}
 	}
 	

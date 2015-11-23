@@ -22,7 +22,16 @@ public class Location implements Serializable{
 	public String getLocation() {
 		return location;
 	}
-//	public Set<ClimateWatchEvent> getEvents(){
+	
+public long getLOCATION_ID() {
+		return LOCATION_ID;
+	}
+
+	public void setLOCATION_ID(long lOCATION_ID) {
+		LOCATION_ID = lOCATION_ID;
+	}
+
+	//	public Set<ClimateWatchEvent> getEvents(){
 //		return Collections.unmodifiableSet(events);
 //	}
 	public Location(long id, String location){
