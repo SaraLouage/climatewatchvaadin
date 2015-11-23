@@ -22,8 +22,6 @@ import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.spring.server.SpringVaadinServlet;
 import com.vaadin.ui.InlineDateField;
 import com.vaadin.ui.NativeSelect;
-import com.vaadin.ui.Notification;
-import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
@@ -35,54 +33,56 @@ import be.faros.services.ClimateWatchEventService;
 @SpringUI
 @SuppressWarnings("serial")
 public class MyVaadinUI extends UI {
-	
+
 	@Autowired
 	ClimateWatchEventService eventService;
 
-	
+	@Override
+	protected void init(VaadinRequest request) {
+
+		VerticalLayout content = new VerticalLayout();
+		setContent(content);
+
+		// Calendar
+		InlineDateField calendarMenu = new InlineDateField();
+		calendarMenu.setValue(new Date());
+		calendarMenu.setImmediate(true);
+		calendarMenu.setTimeZone(TimeZone.getTimeZone("GMT 01:00"));
+		calendarMenu.setLocale(Locale.ENGLISH);
+		calendarMenu.setResolution(Resolution.DAY);
+
+		// DropDown locatie
+		NativeSelect locatieMenu = new NativeSelect("Select an option", eventService.findAllLocations());
+		locatieMenu.setNullSelectionAllowed(false);
+		locatieMenu.setImmediate(true);
+		locatieMenu.addValueChangeListener(
+				e -> InitializeElements.checkValueChange(locatieMenu.getValue(), calendarMenu.getValue(), eventService));
+		calendarMenu.addValueChangeListener(
+				e -> InitializeElements.checkValueChange(locatieMenu.getValue(), calendarMenu.getValue(), eventService));
+		// -------------------------
+//		locatieMenu.addValueChangeListener(
+//				e -> calendarMenu.addValueChangeListener(f -> content.addComponent(InitializeElements.chart)));
+//		calendarMenu.addValueChangeListener(
+//				e -> locatieMenu.addValueChangeListener(f -> content.addComponent(InitializeElements.chart)));
+
+		// ---------------------------------------
+		// adding content
+		content.addComponents(locatieMenu, calendarMenu, InitializeElements.chart);
+	}
+
+	// configuration classes
+	@WebListener
+	public static class MyContextLoaderListener extends ContextLoaderListener {
+	}
+
+	@Configuration
+	@EnableVaadin
+	@Import(value = { ApplicationConfig.class })
+	public static class MyConfiguration {
+	}
+
 	@WebServlet(value = "/*", asyncSupported = true)
 	@VaadinServletConfiguration(productionMode = false, ui = MyVaadinUI.class, widgetset = "MyWidgetset")
 	public static class Servlet extends SpringVaadinServlet {
-	} 
-
-	@Override
-	protected void init(VaadinRequest request) {
-		
-		VerticalLayout content = new VerticalLayout();
-		setContent(content);
-		
-//		 Calendar
-		InlineDateField calendar = new InlineDateField();
-		calendar.setValue(new Date());	
-		calendar.setImmediate(true);
-		calendar.setTimeZone(TimeZone.getTimeZone("GMT 01:00"));
-		calendar.setLocale(Locale.ENGLISH);
-		calendar.setResolution(Resolution.DAY);
-		
-//		DropDown locatie
-		List<Location> events = eventService.findAllLocations();
-		NativeSelect locatie = new NativeSelect("Select an option", events);
-		locatie.setNullSelectionAllowed(false);
-		locatie.setImmediate(true);
-		locatie.addValueChangeListener(e -> checkValueChange(locatie, calendar));
-		calendar.addValueChangeListener(e -> checkValueChange(locatie, calendar));
-
-		//adding content
-		content.addComponents(locatie, calendar, InitializeElements.chart);		
-		}
-	private void checkValueChange(NativeSelect locatie, InlineDateField calendar){
-		if((locatie.getValue()!=null) && (calendar.getValue()!=null)){
-			InitializeElements.makeChart(eventService
-					.findByDateAndLocation(calendar.getValue(), ((Location)locatie.getValue()).getLocation_id()));
-		}
 	}
-	
-	@WebListener
-	public static class MyContextLoaderListener extends ContextLoaderListener {}
-	
-	@Configuration
-	@EnableVaadin
-	@Import(value = {ApplicationConfig.class})
-	public static class MyConfiguration{}
-
 }
