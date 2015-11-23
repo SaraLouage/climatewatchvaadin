@@ -42,7 +42,7 @@ public class MyVaadinUI extends UI {
 		VerticalLayout content = new VerticalLayout();
 		setContent(content);
 
-		// Calendar
+		// Calendar  
 		InlineDateField calendarMenu = new InlineDateField();
 		calendarMenu.setValue(new Date());
 		calendarMenu.setImmediate(true);
