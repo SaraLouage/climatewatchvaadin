@@ -68,6 +68,7 @@ public class MyVaadinUI extends UI {
 		// ---------------------------------------
 		// adding content
 		content.addComponents(locatieMenu, calendarMenu, InitializeElements.chart);
+		content.addAttachListener(listener);
 	}
 
 	// configuration classes
