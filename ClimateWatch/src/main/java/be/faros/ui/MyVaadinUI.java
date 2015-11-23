@@ -35,7 +35,7 @@ public class MyVaadinUI extends UI {
 
 	@Autowired
 	ClimateWatchEventService eventService;
-
+ 
 	@Override
 	protected void init(VaadinRequest request) {
 
