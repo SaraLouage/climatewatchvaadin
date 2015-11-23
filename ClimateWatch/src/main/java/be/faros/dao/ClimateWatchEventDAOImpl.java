@@ -36,24 +36,29 @@ public class ClimateWatchEventDAOImpl implements ClimateWatchEventDAO, Serializa
 	@Override
 	public List<ClimateWatchEvent> findByDate(Date utilDate) {
 		
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(utilDate);
-		@SuppressWarnings("deprecation")
-		Date startDate = new Date(cal.get(Calendar.YEAR)-1900, cal.get(Calendar.MONTH)
-				, cal.get(Calendar.DAY_OF_MONTH), 0,0,0);
-		System.out.println("SSSSSSSSSSSTTTTTTTTTAAAAAAAARRRRRRRTTTTTTTTDDDDDDDAAAAAAAt");
-		System.out.println(startDate);
-		@SuppressWarnings("deprecation")
-		Date endDate = new Date(cal.get(Calendar.YEAR)-1900, cal.get(Calendar.MONTH)
-				, cal.get(Calendar.DAY_OF_MONTH), 23,59,59);
+		Calendar beginCal = Calendar.getInstance();
+		Calendar endCal = Calendar.getInstance();
+
+		beginCal.setTime(utilDate);
 		
-//		String calendarString = ""+ cal.get(Calendar.DAY_OF_MONTH) + "/" + cal.get(Calendar.MONTH) + "/" + cal.get(Calendar.YEAR)+"%";
+		beginCal.set(beginCal.get(Calendar.YEAR), beginCal.get(Calendar.MONTH),
+				beginCal.get(Calendar.DAY_OF_MONTH),
+				0,
+				0,
+				0);
+		
+		endCal.set(beginCal.get(Calendar.YEAR), beginCal.get(Calendar.MONTH),
+				beginCal.get(Calendar.DAY_OF_MONTH),
+				23,
+				59,
+				59);
+		
 		
 		return entityManager.createQuery("select c from ClimateWatchEvent c where c.time between "
 				+ ":startDate and :endDate",
 				ClimateWatchEvent.class)
-				.setParameter("startDate", startDate)
-				.setParameter("endDate", endDate)
+				.setParameter("startDate", beginCal)
+				.setParameter("endDate", endCal)
 				.getResultList();
 		
 	}
