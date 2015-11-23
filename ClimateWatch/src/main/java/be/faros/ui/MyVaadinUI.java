@@ -29,6 +29,7 @@ import com.vaadin.ui.VerticalLayout;
 
 import be.faros.config.ApplicationConfig;
 import be.faros.entities.ClimateWatchEvent;
+import be.faros.entities.Location;
 import be.faros.services.ClimateWatchEventService;
 
 @Theme("valo")
@@ -60,9 +61,9 @@ public class MyVaadinUI extends UI {
 		calendar.setResolution(Resolution.DAY);
 		
 //		DropDown locatie
-		List<ClimateWatchEvent> events = eventService.findAll();
+		List<Location> events = eventService.findAllLocations();
 		NativeSelect locatie = new NativeSelect("Select an option");
-		for(ClimateWatchEvent ce : events){
+		for(Location ce : events){
 			locatie.addItem(ce.getLocation());
 		}
 
@@ -72,11 +73,12 @@ public class MyVaadinUI extends UI {
 		locatie.addValueChangeListener(e -> Notification.show("Value changed:",
 				String.valueOf(e.getProperty().getValue()), Type.TRAY_NOTIFICATION));
 		
-		InitializeElements.makeChart(eventService.findByDate(new Date()));
+//		InitializeElements.makeChart(eventService.findByDate(new Date()));
 		
 		//aan de hand van locatie toevoegen
-
-		calendar.addValueChangeListener(e -> InitializeElements.makeChart(eventService.findByDate(calendar.getValue())));
+//
+//		calendar.addValueChangeListener(e -> InitializeElements
+//				.makeChart(eventService.findByDateAndLocation(calendar.getValue())));
 
 		//adding content
 		content.addComponents(locatie, calendar, InitializeElements.chart);		
