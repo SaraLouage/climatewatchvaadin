@@ -57,7 +57,7 @@ public class ClimateWatchEventDAOImpl implements ClimateWatchEventDAO, Serializa
 		
 		return entityManager.createQuery("select c from ClimateWatchEvent c where (c.time between "
 				+ ":startDate and :endDate) "
-				+ "and (c.location_id =:location)",
+				+ "and (location_id =:location)",
 				ClimateWatchEvent.class)
 				.setParameter("startDate", beginCal)
 				.setParameter("endDate", endCal)

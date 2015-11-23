@@ -21,8 +21,9 @@ public class ClimateWatchEvent implements Serializable{
 	private Calendar time;
 	private float degrees;
 	@ManyToOne
-	@JoinColumn(name="LOCATION_ID")
+	@JoinColumn(name="location_id")
 	private Location location;
+	
 	
 	public Calendar getTime() {
 		return time; 

@@ -79,7 +79,7 @@ public class MyVaadinUI extends UI {
 	private void checkValueChange(NativeSelect locatie, InlineDateField calendar){
 		if((locatie.getValue()!=null) && (calendar.getValue()!=null)){
 			InitializeElements.makeChart(eventService
-					.findByDateAndLocation(calendar.getValue(), ((Location)locatie.getValue()).getLOCATION_ID()));
+					.findByDateAndLocation(calendar.getValue(), ((Location)locatie.getValue()).getLocation_id()));
 		}
 	}
 	

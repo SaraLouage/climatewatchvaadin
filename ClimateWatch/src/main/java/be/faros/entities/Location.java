@@ -13,7 +13,7 @@ public class Location implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue
-	private long LOCATION_ID;
+	private long location_id;
 //	@OneToMany
 //	@JoinColumn(name="LOCATION_ID")
 //	@OrderBy("time")
@@ -22,20 +22,18 @@ public class Location implements Serializable{
 	public String getLocation() {
 		return location;
 	}
-	
-public long getLOCATION_ID() {
-		return LOCATION_ID;
+
+
+	public long getLocation_id() {
+		return location_id;
 	}
 
-	public void setLOCATION_ID(long lOCATION_ID) {
-		LOCATION_ID = lOCATION_ID;
-	}
 
 	//	public Set<ClimateWatchEvent> getEvents(){
 //		return Collections.unmodifiableSet(events);
 //	}
 	public Location(long id, String location){
-		this.LOCATION_ID = id;
+		this.location_id = id;
 		this.location = location;
 	}
 	public Location(){}
