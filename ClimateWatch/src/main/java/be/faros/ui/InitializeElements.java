@@ -18,7 +18,7 @@ import ua.net.freecode.chart.AxisSystem.AxisVertical;
 
 public class InitializeElements {
 	static Chart chart = new Chart();
-	public static void makeChart(InlineDateField calendar, List<ClimateWatchEvent> events){
+	public static void makeChart(List<ClimateWatchEvent> events){
 
 		chart.addStyleName("UniqueColorsBlueGreenRedScheme");
 		chart.setWidth("100%");
@@ -40,42 +40,37 @@ public class InitializeElements {
 			"03:00","05:00","07:00", "09:00","11:00"
 			,"13:00","15:00","17:00","19:00","21:00","23:00"
 			};
-		
-		axisSystem.setXDiscreteValues(hours);
+		int i = 0;
 		double[] array = new double[hours.length];
-		for(ClimateWatchEvent ce : events){
-			Calendar ceCalendar = Calendar.getInstance();
-			ceCalendar.setTime(calendar.getValue());
-			//Timestamp vs date probleem oplossen
-			if ((ce.getTime().getDate()== ceCalendar.getTime().getDate())){
-//				array[i]=(double) ce.getDegrees();
-				
-			}
+		for (ClimateWatchEvent ce: events){
+			array[i++]=(double) ce.getDegrees();
 		}
+
+		axisSystem.setXDiscreteValues(hours);
 		axisSystem.setYDiscreteValuesForAllSeries(new double[][]{array});
 		
 	}
-	private static Table makeTable(InlineDateField calendar, List<ClimateWatchEvent> events) {
-		Table table = new Table();
-
-		table.removeAllItems();
-		table.addContainerProperty("location", Location.class, null);
-		table.addContainerProperty("time", Date.class, null);
-		
-//		List<ClimateWatchEvent> eventsByDate = eventService.findByDate(calendar.getValue());
-
-		int row = 0;
-		for(ClimateWatchEvent ce : events){
-			Calendar ceCalendar = Calendar.getInstance();
-
-			ceCalendar.setTime(calendar.getValue());
-			//Timestamp vs date probleem oplossen
-
-			if (ce.getTime().getDate()== ceCalendar.getTime().getDate())
-		table.addItem(new Object[]{ce.getLocation(),ce.getTime()},row++ );
-		
-		}
-		return table;
-	}
+//	private static Table makeTable(InlineDateField calendar, List<ClimateWatchEvent> events) {
+//		Table table = new Table();
+//
+//		table.removeAllItems();
+//		table.addContainerProperty("location", Location.class, null);
+//		table.addContainerProperty("time", Date.class, null);
+//		
+////		List<ClimateWatchEvent> eventsByDate = eventService.findByDate(calendar.getValue());
+//
+//		int row = 0;
+//		for(ClimateWatchEvent ce : events){
+//			Calendar ceCalendar = Calendar.getInstance();
+//
+//			ceCalendar.setTime(calendar.getValue());
+//			//Timestamp vs date probleem oplossen
+//
+//			if (ce.getTime().getDate()== ceCalendar.getTime().getDate())
+//		table.addItem(new Object[]{ce.getLocation(),ce.getTime()},row++ );
+//		
+//		}
+//		return table;
+//	}
 
 }

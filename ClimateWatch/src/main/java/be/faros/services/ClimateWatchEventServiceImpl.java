@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import be.faros.dao.ClimateWatchEventDAO;
 import be.faros.entities.ClimateWatchEvent;
-import be.faros.entities.Location;
 
 @Service("eventService")
 public class ClimateWatchEventServiceImpl implements ClimateWatchEventService{
@@ -22,8 +21,10 @@ public class ClimateWatchEventServiceImpl implements ClimateWatchEventService{
 		return eventDAO.findAll();
 	}
 	@Override
-	public List<ClimateWatchEvent> findByDate(Date date){
-		return eventDAO.findByDate(date);
+	public List<ClimateWatchEvent> findByDate(Date utilDate){
+		System.out.println("xxxxxxxxxxxxxxxxxx");
+		System.out.println(utilDate);
+		return eventDAO.findByDate(utilDate);
 	};
 
 }

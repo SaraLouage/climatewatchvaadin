@@ -1,6 +1,5 @@
 package be.faros.ui;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -75,43 +74,44 @@ public class MyVaadinUI extends UI {
 		locatie.addValueChangeListener(e -> Notification.show("Value changed:",
 				String.valueOf(e.getProperty().getValue()), Type.TRAY_NOTIFICATION));
 		
-		InitializeElements.makeChart(calendar, events);
-		Table table = tableMaken(calendar);
+		InitializeElements.makeChart(events);
+//		Table table = tableMaken(calendar);
 		
 		//aan de hand van locatie toevoegen
-		calendar.addValueChangeListener(e -> tableMaken(calendar));
-		calendar.addValueChangeListener(e -> InitializeElements.makeChart(calendar, events));
+
+//		calendar.addValueChangeListener(e -> tableMaken(calendar));
+		calendar.addValueChangeListener(e -> InitializeElements.makeChart(eventService.findByDate(calendar.getValue())));
 
 		//adding content
-		content.addComponents(locatie, calendar, InitializeElements.chart, table);		
+		content.addComponents(locatie, calendar, InitializeElements.chart);		
 		}
 
-	private Table tableMaken(InlineDateField calendar) {
-
-		Table table = new Table();
-		table.removeAllItems();
-		table.addContainerProperty("location", Location.class, null);
-		table.addContainerProperty("time", Date.class, null);
-		
-		Date date = calendar.getValue();
-		Calendar calendarVar = Calendar.getInstance();
-		calendarVar.setTime(date);
-		calendarVar.set(Calendar.HOUR_OF_DAY, 0);
-		calendarVar.set(Calendar.MINUTE, 0);
-		calendarVar.set(Calendar.SECOND, 0);
-		calendarVar.set(Calendar.MILLISECOND, 0);   
-		
-		List<ClimateWatchEvent> eventsByDate = eventService.findByDate(calendarVar.getTime());
-System.out.println("KKKKKKKKKKKKKKKKKKKKKKKKKKKKKK");
-System.out.println("CalenderVar getValue: " + calendarVar.getTime());
-		int row = 0;
-
-		for(ClimateWatchEvent ce : eventsByDate){		
-		table.addItem(new Object[]{ce.getLocation(),ce.getTime()},row++ );			}
-		table.addItem(new Object[]{new Location() ,new Date()},row++ );
-
-		return table;
-	}
+//	private Table tableMaken(InlineDateField calendar) {
+//
+//		Table table = new Table();
+//		table.removeAllItems();
+//		table.addContainerProperty("location", Location.class, null);
+//		table.addContainerProperty("time", Date.class, null);
+//		
+//		Date date = calendar.getValue();
+//		Calendar calendarVar = Calendar.getInstance();
+//		calendarVar.setTime(date);
+//		calendarVar.set(Calendar.HOUR_OF_DAY, 0);
+//		calendarVar.set(Calendar.MINUTE, 0);
+//		calendarVar.set(Calendar.SECOND, 0);
+//		calendarVar.set(Calendar.MILLISECOND, 0);   
+//		
+//		List<ClimateWatchEvent> eventsByDate = eventService.findByDate(calendarVar.getTime());
+//System.out.println("KKKKKKKKKKKKKKKKKKKKKKKKKKKKKK");
+//System.out.println("CalenderVar getValue: " + calendarVar.getTime());
+//		int row = 0;
+//
+//		for(ClimateWatchEvent ce : eventsByDate){		
+//		table.addItem(new Object[]{ce.getLocation(),ce.getTime()},row++ );			}
+//		table.addItem(new Object[]{new Location() ,new Date()},row++ );
+//
+//		return table;
+//	}
 	
 	@WebListener
 	public static class MyContextLoaderListener extends ContextLoaderListener {}
