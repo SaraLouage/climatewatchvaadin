@@ -64,13 +64,7 @@ public class MyVaadinUI extends UI {
 		NativeSelect locatie = new NativeSelect("Select an option", events);
 		locatie.setNullSelectionAllowed(false);
 		locatie.setImmediate(true);
-		locatie.addValueChangeListener(e -> Notification.show("Value changed:",
-				String.valueOf(e.getProperty().getValue()), Type.TRAY_NOTIFICATION));
-		
-//		InitializeElements.makeChart(eventService.findByDate(new Date()));
-		
-		//aan de hand van locatie toevoegen
-//
+		locatie.addValueChangeListener(e -> checkValueChange(locatie, calendar));
 		calendar.addValueChangeListener(e -> checkValueChange(locatie, calendar));
 
 		//adding content
