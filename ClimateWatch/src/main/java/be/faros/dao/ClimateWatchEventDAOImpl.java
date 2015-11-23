@@ -65,5 +65,16 @@ public class ClimateWatchEventDAOImpl implements ClimateWatchEventDAO, Serializa
 				.getResultList();
 		
 	}
+	@Override
+	public List<ClimateWatchEvent> findLocation(long location) {
+		
+		
+		return entityManager.createQuery("select c from ClimateWatchEvent c where "
+				+ "(c.location_id =:location);",
+				ClimateWatchEvent.class)
+				.setParameter("location", location)
+				.getResultList();
+	}
+	
 
 }
