@@ -1,6 +1,6 @@
 package be.faros.ui;
 
-import java.util.Formatter;
+import java.util.Calendar;
 import java.util.List;
 
 import be.faros.entities.ClimateWatchEvent;
@@ -35,15 +35,12 @@ public class InitializeElements {
 				"03","05","07", "09","11"
 				,"13","15","17","19","21","23"
 				};
-		StringBuilder sb = new StringBuilder();
-		Formatter formatter = new Formatter(sb);
-		formatter.format("%s:00",(Object[])hours);
 		axisSystem.setXDiscreteValues(hours);
 		double[] array = new double[hours.length];
 
 		for (ClimateWatchEvent ce: events){
 			for(int i= 0; i< hours.length; i++){
-				if (ce.getTime().getHours()== Integer.parseInt(hours[i])){
+				if (ce.getTime().get(Calendar.HOUR_OF_DAY)== Integer.parseInt(hours[i])){
 					array[i]=(double) ce.getDegrees();
 					}
 			}	
