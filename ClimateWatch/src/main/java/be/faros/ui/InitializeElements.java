@@ -4,8 +4,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import com.vaadin.ui.VerticalLayout;
-
 import be.faros.entities.ClimateWatchEvent;
 import be.faros.entities.Location;
 import be.faros.services.ClimateWatchEventService;
@@ -21,17 +19,15 @@ public class InitializeElements {
 
 	public static void checkValueChange(Object locatieMenu, Date calendarMenu,
 			ClimateWatchEventService eventService) {
-		System.out.println("TTTTEEEESSSSTTTTTTBEFORE IFFF");
 		if (locatieMenu != null) {
 			InitializeElements.makeChart(eventService.findByDateAndLocation(calendarMenu,
 					((Location) locatieMenu).getLocation_id()));
-			System.out.println("TTTTEEEESSSSTTTTTT");
-			System.out.println(locatieMenu);
+
 		}
 	}
 
 	public static void makeChart(List<ClimateWatchEvent> events) {
-		System.out.println("TTTEEESSSTTT222222222222222222");
+		chart = new Chart();
 		chart.addStyleName("UniqueColorsBlueGreenRedScheme");
 		chart.setWidth("100%");
 		chart.setHeight("400px");
