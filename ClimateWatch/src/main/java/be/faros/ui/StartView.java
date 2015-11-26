@@ -41,19 +41,16 @@ public class StartView extends VerticalLayout implements View {
 		NativeSelect locationSelection = makeLocationSelection();
 		InlineDateField calendar = makeCalendar();
 
-//		Make chart layout
 		Chart chart = makeChartLayout();
 		AxisSystem axisSystem = makeAxisSystem(chart);
 		String[] hours = new String[] { "01", "03", "05", "07", "09", "11", "13", "15", "17", "19", "21", "23" };
 		axisSystem.setXDiscreteValues(hours);
 		
-		// listeners that add chart content
 		locationSelection.addValueChangeListener(e -> checkValueChange(locationSelection.getValue(), calendar.getValue(),
 				eventService, axisSystem, hours));
 		calendar.addValueChangeListener(e -> checkValueChange(locationSelection.getValue(), calendar.getValue(),
 				eventService, axisSystem, hours));
 
-		// adding components
 		addComponents(locationSelection, calendar, chart);
 	}
 	
@@ -65,7 +62,6 @@ public class StartView extends VerticalLayout implements View {
 	}
 	
 	private InlineDateField makeCalendar() {
-		// Calendar
 		InlineDateField calendar = new InlineDateField();
 		calendar.setValue(new Date());
 		calendar.setImmediate(true);
@@ -76,7 +72,6 @@ public class StartView extends VerticalLayout implements View {
 	}
 	
 	private Chart makeChartLayout() {
-		// chart
 		Chart chart = new Chart();
 		chart.addStyleName("UniqueColorsBlueGreenRedScheme");
 		chart.setWidth("100%");
@@ -100,7 +95,7 @@ public class StartView extends VerticalLayout implements View {
 		return axisSystem;
 	}
 
-	public void checkValueChange(Object locatieMenu, Date calendarMenu, ClimateWatchEventService eventService,
+	private void checkValueChange(Object locatieMenu, Date calendarMenu, ClimateWatchEventService eventService,
 			AxisSystem axisSystem, String[] hours) {
 		if (locatieMenu != null) {
 			addChartContent(eventService.findByDateAndLocation(calendarMenu, ((Location) locatieMenu).getLocation_id()),
@@ -109,7 +104,7 @@ public class StartView extends VerticalLayout implements View {
 		}
 	}
 
-	public void addChartContent(List<ClimateWatchEvent> events, AxisSystem axisSystem, String[] hours) {
+	private void addChartContent(List<ClimateWatchEvent> events, AxisSystem axisSystem, String[] hours) {
 
 		double[] array = new double[hours.length];
 		for (ClimateWatchEvent ce : events) {
