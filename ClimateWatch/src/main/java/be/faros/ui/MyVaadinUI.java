@@ -4,21 +4,16 @@ import javax.servlet.annotation.WebListener;
 import javax.servlet.annotation.WebServlet;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.web.context.ContextLoaderListener;
 
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.server.VaadinRequest;
-import com.vaadin.spring.annotation.EnableVaadin;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.spring.navigator.SpringViewProvider;
 import com.vaadin.spring.server.SpringVaadinServlet;
 import com.vaadin.ui.UI;
-
-import be.faros.config.ApplicationConfig;
 
 @Theme("valo")
 @SpringUI
@@ -39,12 +34,6 @@ public class MyVaadinUI extends UI {
 	// configuration classes
 	@WebListener
 	public static class MyContextLoaderListener extends ContextLoaderListener {
-	}
-
-	@Configuration
-	@EnableVaadin
-	@Import(value = { ApplicationConfig.class })
-	public static class MyConfiguration {
 	}
 
 	@WebServlet(value = "/*", asyncSupported = true)
