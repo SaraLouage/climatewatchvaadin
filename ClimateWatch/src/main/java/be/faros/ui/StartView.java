@@ -37,39 +37,45 @@ public class StartView extends VerticalLayout implements View {
 
 	@PostConstruct
 	public void init() {
-
-		InlineDateField calendarMenu = makeCalendar();
-
-		NativeSelect locatieMenu = makeDropDownMenu();
+		
+		NativeSelect locationSelection = makeLocationSelection();
+		InlineDateField calendar = makeCalendar();
 
 //		Make chart layout
-		Chart chart = makeChart();
+		Chart chart = makeChartLayout();
 		AxisSystem axisSystem = makeAxisSystem(chart);
 		String[] hours = new String[] { "01", "03", "05", "07", "09", "11", "13", "15", "17", "19", "21", "23" };
 		axisSystem.setXDiscreteValues(hours);
 		
-		// listeners
-		locatieMenu.addValueChangeListener(e -> checkValueChange(locatieMenu.getValue(), calendarMenu.getValue(),
+		// listeners that add chart content
+		locationSelection.addValueChangeListener(e -> checkValueChange(locationSelection.getValue(), calendar.getValue(),
 				eventService, axisSystem, hours));
-		calendarMenu.addValueChangeListener(e -> checkValueChange(locatieMenu.getValue(), calendarMenu.getValue(),
+		calendar.addValueChangeListener(e -> checkValueChange(locationSelection.getValue(), calendar.getValue(),
 				eventService, axisSystem, hours));
 
 		// adding components
-		addComponents(locatieMenu, calendarMenu, chart);
+		addComponents(locationSelection, calendar, chart);
 	}
-
-	private AxisSystem makeAxisSystem(Chart chart) {
-		AxisSystem axisSystem = chart.createAxisSystem(AxisHorizontal.Bottom, AxisVertical.Left);
-		axisSystem.setVerticalAxisMaxValue(100);
-		axisSystem.setHorizontalAxisLabelAngle(45);
-		axisSystem.setHorizontalAxisTitle("time");
-		axisSystem.setVerticalAxisTitle("temperature");
-		axisSystem.setCurvePresentation(new CurvePresentation[] {
-				new CurvePresentation(new Marker(Marker.MarkerShape.Circle), 0, CurvePresentation.CurveKind.Line) });
-		return axisSystem;
+	
+	private NativeSelect makeLocationSelection() {
+		NativeSelect locationSelection = new NativeSelect("Select an option", eventService.findAllLocations());
+		locationSelection.setNullSelectionAllowed(false);
+		locationSelection.setImmediate(true);
+		return locationSelection;
 	}
-
-	private Chart makeChart() {
+	
+	private InlineDateField makeCalendar() {
+		// Calendar
+		InlineDateField calendar = new InlineDateField();
+		calendar.setValue(new Date());
+		calendar.setImmediate(true);
+		calendar.setTimeZone(TimeZone.getTimeZone("GMT 01:00"));
+		calendar.setLocale(Locale.ENGLISH);
+		calendar.setResolution(Resolution.DAY);
+		return calendar;
+	}
+	
+	private Chart makeChartLayout() {
 		// chart
 		Chart chart = new Chart();
 		chart.addStyleName("UniqueColorsBlueGreenRedScheme");
@@ -82,23 +88,16 @@ public class StartView extends VerticalLayout implements View {
 		chart.setLegendItemWidth(112);
 		return chart;
 	}
-
-	private NativeSelect makeDropDownMenu() {
-		NativeSelect locatieMenu = new NativeSelect("Select an option", eventService.findAllLocations());
-		locatieMenu.setNullSelectionAllowed(false);
-		locatieMenu.setImmediate(true);
-		return locatieMenu;
-	}
-
-	private InlineDateField makeCalendar() {
-		// Calendar
-		InlineDateField calendarMenu = new InlineDateField();
-		calendarMenu.setValue(new Date());
-		calendarMenu.setImmediate(true);
-		calendarMenu.setTimeZone(TimeZone.getTimeZone("GMT 01:00"));
-		calendarMenu.setLocale(Locale.ENGLISH);
-		calendarMenu.setResolution(Resolution.DAY);
-		return calendarMenu;
+	
+	private AxisSystem makeAxisSystem(Chart chart) {
+		AxisSystem axisSystem = chart.createAxisSystem(AxisHorizontal.Bottom, AxisVertical.Left);
+		axisSystem.setVerticalAxisMaxValue(100);
+		axisSystem.setHorizontalAxisLabelAngle(45);
+		axisSystem.setHorizontalAxisTitle("time");
+		axisSystem.setVerticalAxisTitle("temperature");
+		axisSystem.setCurvePresentation(new CurvePresentation[] {
+				new CurvePresentation(new Marker(Marker.MarkerShape.Circle), 0, CurvePresentation.CurveKind.Line) });
+		return axisSystem;
 	}
 
 	public void checkValueChange(Object locatieMenu, Date calendarMenu, ClimateWatchEventService eventService,

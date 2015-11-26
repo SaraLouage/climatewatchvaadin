@@ -17,10 +17,8 @@ import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.spring.navigator.SpringViewProvider;
 import com.vaadin.spring.server.SpringVaadinServlet;
 import com.vaadin.ui.UI;
-import com.vaadin.ui.VerticalLayout;
 
 import be.faros.config.ApplicationConfig;
-import be.faros.services.ClimateWatchEventService;
 
 @Theme("valo")
 @SpringUI
@@ -30,7 +28,6 @@ public class MyVaadinUI extends UI {
 	private SpringViewProvider viewProvider;
 	private Navigator navigator;
 
-	
 	@Override
 	protected void init(VaadinRequest request) {
 		getPage().setTitle("ClimateWatch");
