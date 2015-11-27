@@ -48,8 +48,8 @@ public class StartView extends VerticalLayout implements View {
 		makeCalendar();
 		makeChartLayout();
 
-		locationSelection.addValueChangeListener(e -> checkLocationNotNull());
-		calendar.addValueChangeListener(e -> checkLocationNotNull());
+		locationSelection.addValueChangeListener(e -> ifLocationNotNullAddContent());
+		calendar.addValueChangeListener(e -> ifLocationNotNullAddContent());
 
 		addComponents(locationSelection, calendar, chart);
 	}
@@ -94,7 +94,7 @@ public class StartView extends VerticalLayout implements View {
 				new CurvePresentation(new Marker(Marker.MarkerShape.Circle), 0, CurvePresentation.CurveKind.Line) });
 	}
 
-	private void checkLocationNotNull() {
+	private void ifLocationNotNullAddContent() {
 		if (locationSelection.getValue() != null) {
 			addChartContent(eventService.findByDateAndLocation(calendar.getValue(),
 					((Location) locationSelection.getValue()).getLocation_id()));
