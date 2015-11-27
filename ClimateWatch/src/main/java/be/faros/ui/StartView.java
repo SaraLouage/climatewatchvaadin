@@ -46,9 +46,9 @@ public class StartView extends VerticalLayout implements View {
 		AxisSystem axisSystem = makeAxisSystem(chart);
 		axisSystem.setXDiscreteValues(hours);
 		
-		locationSelection.addValueChangeListener(e -> checkIfLocationNotNull(locationSelection.getValue(), calendar.getValue(),
+		locationSelection.addValueChangeListener(e -> checkLocationNotNull(locationSelection.getValue(), calendar.getValue(),
 				axisSystem));
-		calendar.addValueChangeListener(e -> checkIfLocationNotNull(locationSelection.getValue(), calendar.getValue(),
+		calendar.addValueChangeListener(e -> checkLocationNotNull(locationSelection.getValue(), calendar.getValue(),
 				axisSystem));
 
 		addComponents(locationSelection, calendar, chart);
@@ -96,7 +96,7 @@ public class StartView extends VerticalLayout implements View {
 		return axisSystem;
 	}
 
-	private void checkIfLocationNotNull(Object selectedLocation, Date selectedDate, 
+	private void checkLocationNotNull(Object selectedLocation, Date selectedDate, 
 			AxisSystem axisSystem) {
 		if (selectedLocation != null) {
 			List<ClimateWatchEvent> events = eventService.findByDateAndLocation(selectedDate, ((Location) selectedLocation).getLocation_id());
