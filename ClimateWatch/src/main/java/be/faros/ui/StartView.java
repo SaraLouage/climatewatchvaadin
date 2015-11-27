@@ -33,23 +33,25 @@ public class StartView extends VerticalLayout implements View {
 	private static final long serialVersionUID = 1L;
 	public static final String VIEW_NAME = "";
 	String[] hours = new String[] { "01", "03", "05", "07", "09", "11", "13", "15", "17", "19", "21", "23" };
-
+	NativeSelect locationSelection;
+	InlineDateField calendar;
+	Chart chart;
+	AxisSystem axisSystem;
+	
 	@Autowired
 	ClimateWatchEventService eventService;
 
 	@PostConstruct
 	public void init() {
 		
-		NativeSelect locationSelection = makeLocationSelection();
-		InlineDateField calendar = makeCalendar();
-		Chart chart = makeChartLayout();
-		AxisSystem axisSystem = makeAxisSystem(chart);
-		axisSystem.setXDiscreteValues(hours);
+		locationSelection = makeLocationSelection();
+		calendar = makeCalendar();
+		chart = makeChartLayout();
 		
-		locationSelection.addValueChangeListener(e -> checkLocationNotNull(locationSelection.getValue(), calendar.getValue(),
-				axisSystem));
-		calendar.addValueChangeListener(e -> checkLocationNotNull(locationSelection.getValue(), calendar.getValue(),
-				axisSystem));
+		locationSelection.addValueChangeListener(e -> checkLocationNotNull(
+				locationSelection.getValue(), calendar.getValue()));
+		calendar.addValueChangeListener(e -> checkLocationNotNull(
+				locationSelection.getValue(), calendar.getValue()));
 
 		addComponents(locationSelection, calendar, chart);
 	}
@@ -81,6 +83,8 @@ public class StartView extends VerticalLayout implements View {
 		chart.setGeneralTitle("ClimateWatch");
 		chart.setLegendData(new String[] { "temperature" });
 		chart.setLegendItemWidth(112);
+		axisSystem = makeAxisSystem(chart);
+		axisSystem.setXDiscreteValues(hours);
 		return chart;
 	}
 	
@@ -96,15 +100,14 @@ public class StartView extends VerticalLayout implements View {
 		return axisSystem;
 	}
 
-	private void checkLocationNotNull(Object selectedLocation, Date selectedDate, 
-			AxisSystem axisSystem) {
+	private void checkLocationNotNull(Object selectedLocation, Date selectedDate) {
 		if (selectedLocation != null) {
 			List<ClimateWatchEvent> events = eventService.findByDateAndLocation(selectedDate, ((Location) selectedLocation).getLocation_id());
-			addChartContent(events, axisSystem);
+			addChartContent(events);
 		}
 	}
 
-	private void addChartContent(List<ClimateWatchEvent> events, AxisSystem axisSystem) {
+	private void addChartContent(List<ClimateWatchEvent> events) {
 
 		double[] array = new double[hours.length];
 		for (ClimateWatchEvent ce : events) {
