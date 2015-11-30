@@ -32,18 +32,17 @@ import ua.net.freecode.chart.Marker;
 public class StartView extends VerticalLayout implements View {
 	private static final long serialVersionUID = 1L;
 	public static final String VIEW_NAME = "";
-	String[] valuesXAxisTime; 
-	NativeSelect locationSelection;
-	InlineDateField calendar;
-	Chart chart;
-	AxisSystem axisSystem;
+	private String[] valuesXAxisTime; 
+	private NativeSelect locationSelection;
+	private InlineDateField calendar;
+	private Chart chart;
+	private AxisSystem axisSystem;
 
 	@Autowired
 	ClimateWatchEventService eventService;
 
 	@PostConstruct
 	public void init() {
-
 		makeLocationSelection();
 		makeCalendar();
 		makeChartLayout();
@@ -54,6 +53,10 @@ public class StartView extends VerticalLayout implements View {
 		addComponents(locationSelection, calendar, chart);
 	}
 
+	@Override
+	public void enter(ViewChangeEvent event) {
+	}
+	
 	private void makeLocationSelection() {
 		locationSelection = new NativeSelect("Select an option", eventService.findAllLocations());
 		locationSelection.setNullSelectionAllowed(false);
@@ -112,9 +115,5 @@ public class StartView extends VerticalLayout implements View {
 			}
 		}
 		axisSystem.setYDiscreteValuesForAllSeries(new double[][] { valuesYAxisDegrees });
-	}
-
-	@Override
-	public void enter(ViewChangeEvent event) {
 	}
 }
