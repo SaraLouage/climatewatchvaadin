@@ -1,5 +1,6 @@
 package be.faros.services;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -11,11 +12,12 @@ import be.faros.entities.ClimateWatchEvent;
 import be.faros.entities.Location;
 
 @Service("eventService")
-public class ClimateWatchEventServiceImpl implements ClimateWatchEventService{
-	private final ClimateWatchEventDAO eventDAO;
+public class ClimateWatchEventServiceImpl implements ClimateWatchEventService, Serializable{
+	private static final long serialVersionUID = 1L;
+	private ClimateWatchEventDAO eventDAO;
 	
 	@Autowired
-	public ClimateWatchEventServiceImpl(ClimateWatchEventDAO eventDAO) {
+	public void setEventDAO(ClimateWatchEventDAO eventDAO) {
 		this.eventDAO = eventDAO;
 	}
 	
@@ -26,7 +28,6 @@ public class ClimateWatchEventServiceImpl implements ClimateWatchEventService{
 	
 	@Override
 	public List<ClimateWatchEvent> findByDateAndLocation(Date utilDate, long location){
-
 		return eventDAO.findByDateAndLocation(utilDate, location);
 	}
 	
