@@ -24,21 +24,23 @@ public class ClimateWatchEvent implements Serializable{
 	@JoinColumn(name="location_id")
 	private Location location;
 	
-	
-	public Calendar getTime() {
-		return time; 
-	}
-	public float getDegrees() {
-		return degrees;
-	}
-	public Location getLocation(){
-		return location;
-	}
 	public ClimateWatchEvent(){}
+	
 	public ClimateWatchEvent(long id, Calendar time, float degrees, Location location){
 		this.id = id;
 		this.time = time;
 		this.degrees = degrees;
 		this.location = location;
+	}
+	public Calendar getTime() {
+		return time; 
+	}
+	
+	public float getDegrees() {
+		return degrees;
+	}
+	
+	public Location getLocation(){
+		return location;
 	}
 }

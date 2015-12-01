@@ -23,12 +23,6 @@ public class ClimateWatchEventDAOImpl implements ClimateWatchEventDAO, Serializa
 		this.entityManager = entityManager;
 	}
 
-	// @Override
-	// public ClimateWatchEvent read(long id) {
-	//// return entityManager.find(ClimateWatchEvent.class, id);
-	// return null;
-	// }
-
 	@Override
 	public List<ClimateWatchEvent> findAll() {
 		return entityManager.createQuery("select c from ClimateWatchEvent c", ClimateWatchEvent.class).getResultList();
@@ -36,25 +30,14 @@ public class ClimateWatchEventDAOImpl implements ClimateWatchEventDAO, Serializa
 
 	@Override
 	public List<ClimateWatchEvent> findByDateAndLocation(Date utilDate, long location) {
-		
 		Calendar beginCal = Calendar.getInstance();
 		Calendar endCal = Calendar.getInstance();
-
 		beginCal.setTime(utilDate);
-		
 		beginCal.set(beginCal.get(Calendar.YEAR), beginCal.get(Calendar.MONTH),
-				beginCal.get(Calendar.DAY_OF_MONTH),
-				0,
-				0,
-				0);
-		
+				beginCal.get(Calendar.DAY_OF_MONTH), 0, 0, 0);
 		endCal.set(beginCal.get(Calendar.YEAR), beginCal.get(Calendar.MONTH),
-				beginCal.get(Calendar.DAY_OF_MONTH),
-				23,
-				59,
-				59);
-		
-		
+				beginCal.get(Calendar.DAY_OF_MONTH), 23, 59, 59);
+
 		return entityManager.createQuery("select c from ClimateWatchEvent c where (c.time between "
 				+ ":startDate and :endDate) "
 				+ "and (location_id =:location)",
@@ -63,14 +46,12 @@ public class ClimateWatchEventDAOImpl implements ClimateWatchEventDAO, Serializa
 				.setParameter("endDate", endCal)
 				.setParameter("location", location)
 				.getResultList();
-		
 	}
+	
 	@Override
 	public List<Location> findAllLocations() {		
 		return entityManager.createQuery("select l from Location l",
 				Location.class)
 				.getResultList();
 	}
-	
-
 }
