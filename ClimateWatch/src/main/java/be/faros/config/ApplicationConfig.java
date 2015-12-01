@@ -16,6 +16,4 @@ import be.faros.services.CreateServiceBeans;
 @EnableVaadin
 @Import(value = {CreateDAOBeans.class, CreateServiceBeans.class})
 @ComponentScan(basePackageClasses = {Location.class, ClimateWatchEventDAO.class, ClimateWatchEventService.class})
-public class ApplicationConfig {
-
-}
+public class ApplicationConfig {}

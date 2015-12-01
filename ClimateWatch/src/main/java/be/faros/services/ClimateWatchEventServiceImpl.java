@@ -13,24 +13,26 @@ import be.faros.entities.Location;
 @Service("eventService")
 public class ClimateWatchEventServiceImpl implements ClimateWatchEventService{
 	private final ClimateWatchEventDAO eventDAO;
+	
 	@Autowired
 	public ClimateWatchEventServiceImpl(ClimateWatchEventDAO eventDAO) {
 		this.eventDAO = eventDAO;
 	}
+	
 	@Override
 	public List<ClimateWatchEvent> findAll(){
 		return eventDAO.findAll();
 	}
+	
 	@Override
 	public List<ClimateWatchEvent> findByDateAndLocation(Date utilDate, long location){
 
 		return eventDAO.findByDateAndLocation(utilDate, location);
-	};
+	}
+	
 	@Override
 	public
 	List<Location> findAllLocations(){
 		return eventDAO.findAllLocations();
-		
 	}
-
 }

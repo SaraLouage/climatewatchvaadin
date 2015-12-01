@@ -33,6 +33,7 @@ public class CreateDAOBeans {
 		factory.getJpaPropertyMap().put("hibernate.use_sql_comments", true);
 		return factory;
 	}
+	
 	@Bean
 	public DataSource dataSource() {
 	    DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -42,6 +43,7 @@ public class CreateDAOBeans {
 	    dataSource.setPassword("root");
 	    return dataSource;
 	}
+	
 	@Bean
 	JpaTransactionManager transactionManager() {
 		return new JpaTransactionManager(entityManagerFactory().getObject());
