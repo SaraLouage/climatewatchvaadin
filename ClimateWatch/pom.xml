@@ -70,7 +70,7 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager
 				</artifactId>
-			<version>5.0.3.Final</version>
+			<version>4.3.11.Final</version>
 		</dependency>
 		<!-- spring -->
 		<dependency>
@@ -80,6 +80,15 @@
 		<dependency> <!-- gebruik Spring MVC -->
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.10</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
 		</dependency>
 	</dependencies>
 </project>
